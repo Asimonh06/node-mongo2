@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            background: blue;
+        }
+
+        form{
+            padding: 20px 20px;
+            margin: auto;
+            margin-top: 15px;
+            text-align: center;
+            width: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 10px #b1b1b1ab;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input{
+            padding: 10px;
+            margin-bottom: 15px;
+            outline: none;
+            width: 80%;
+        }
+
+        button{
+            padding: 10px 20px;
+            text-align: center;
+            border-style: none;
+            background: #0066ff;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            width: 80%;
+        }
+
+    </style>
+</head>
+<body>
+    <form id="form">
+        <input type="text" name="nombre" placeholder="Coloca tu nombre" required>
+        <input type="text" name="apellido" placeholder="Coloca tu apellido" required>
+        <input type="number" name="edad" placeholder="Coloca tu edad" required min="0">
+        <button type="submit">Registrar</button>
+    </form>
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            const response = await fetch('/submit', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+
+            if(response.ok){
+                alert("Formulario se envio con exito");
+                form.reset();
+            }else{
+                alert("Error al enviar");
+            }
+        });
+    </script>
+</body>
+</html>
