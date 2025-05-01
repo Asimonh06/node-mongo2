@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Person = require('./models/Person');
 const app = express();
+require('dotenv').config()
 
 app.use(express.static('public'));
 app.use(express.json());
 
-const MONGO_URI = "mongodb+srv://asimonh06:Operation7%3A@cluster0.o91pug4.mongodb.net/certus?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI).then(()=>{
     console.log("Se conecto exitosamente");
